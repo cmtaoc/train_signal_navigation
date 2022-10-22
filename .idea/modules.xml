@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/train-signal-navigation.iml" filepath="$PROJECT_DIR$/train-signal-navigation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/train_signal_navigation.iml" filepath="$PROJECT_DIR$/train_signal_navigation.iml" />
     </modules>
   </component>
 </project>
