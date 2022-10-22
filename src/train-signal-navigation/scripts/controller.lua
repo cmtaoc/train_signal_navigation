@@ -38,24 +38,30 @@ end
 
 local function get_station(navigation)
     local station = navigation.station
-    if not station or not station.valid then
+    if station and station.valid then
+        tools.debug("station is valid")
         return station
     end
 
-    local connect_entities = navigation.entity.circuit_connected_entities()
-    if connect_entities and connect_entities.red then
-        for i, v in pairs(connect_entities.red) do
-            tools.debug(v.type .. " -- " .. v.name)
-            if v.type == "train-stop" then
-                station = v
-                navigation.station = station
-                return station
-            end
-        end
+    local entity = navigation.entity
+    local stations = entity.surface.find_entities_filtered {
+        radius = 2,
+        type = "train-stop"
+    }
+    if #stations == 0 then
+        tools.debug("No station found")
+        return false
     end
 
-    navigation.station = nil
-    return nil;
+    if #stations ~= 1 then
+        tools.debug("Too many train stop around controller")
+        return false
+    end
+
+    station = stations[1]
+    navigation.station = station
+
+    return station;
 end
 
 local function reset_station_name(navigation, station)
@@ -75,19 +81,18 @@ end
 
 local function exec_navigation(navigation)
     local station = get_station(navigation)
-    if not station or not station.valid then
-        tools.debug("No train stop found.")
-        return
-    end
+    if not station then return end
 
     local item_map = navigation.item_map
     if not item_map or #item_map == 0 then
+        tools.debug("no item map")
         reset_station_name(navigation, station)
         return
     end
 
     local train = station.get_stopped_train()
     if train then
+        tools.debug("in train stop")
         in_train_stopped(navigation)
         return
     end
@@ -119,9 +124,12 @@ local function exec_navigation(navigation)
         reset_station_name(navigation, station)
     end
 
+    tools.debug_obj(item)
+
     local signal = item.signal
-    local control_behavior = entity.get_or_create_control_behavior()
+    local control_behavior = navigation.entity.get_or_create_control_behavior()
     local need_count = get_input_signal_count(control_behavior, defines.wire_type.green, signal)
+
     if need_count <= item.lower_limit then
         out_green_signal(control_behavior, signal)
         change_station_name(navigation, station, item)
