@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdeda29d-a773-470d-b9db-23c7d4c19eaf" name="变更" comment="">
+    <list default="true" id="cdeda29d-a773-470d-b9db-23c7d4c19eaf" name="变更" comment="尝试lamp">
+      <change afterPath="$PROJECT_DIR$/src/train-signal-navigation/settings.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/train-signal-navigation/data/navigation.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/train-signal-navigation/data/navigation.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/train-signal-navigation/graphics/nav-train-signal.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/train-signal-navigation/graphics/nav-train-signal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/train-signal-navigation/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/train-signal-navigation/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/train-signal-navigation/locale/zh-CN/locale.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/src/train-signal-navigation/locale/zh-CN/locale.cfg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/train-signal-navigation/scripts/controller.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/train-signal-navigation/scripts/controller.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train_signal_navigation.iml" beforeDir="false" afterPath="$PROJECT_DIR$/train_signal_navigation.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/train-signal-navigation/scripts/controller11.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/train-signal-navigation/scripts/navigation.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/train-signal-navigation/scripts/navigation.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/train-signal-navigation/scripts/tools11.lua" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,11 +45,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/train-signal-navigation" />
     <property name="project.structure.last.edited" value="模块" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\working\codes\factorio\mods\train_signal_navigation\src\train-signal-navigation" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
@@ -69,10 +78,22 @@
       <option name="presentableId" value="Default" />
       <updated>1666452613075</updated>
       <workItem from="1666452614165" duration="7246000" />
+      <workItem from="1666508240772" duration="22997000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

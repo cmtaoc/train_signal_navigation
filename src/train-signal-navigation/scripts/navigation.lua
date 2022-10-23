@@ -3,28 +3,27 @@ local controller = require("scripts.controller")
 
 local navigation_panel = "nav-panel"
 local navigation_name = "nav-train-signal"
+local supply_station_suffix_name = navigation_name .. "-supply-name"
 
 local navigations
 
-local function get_navigations()
-    if navigations then
-        return navigations
-    end
+local function get_or_create_navigations()
+    if navigations then return navigations end
+
+    controller.supply_station_suffix_name = supply_station_suffix_name
 
     navigations = global.navigations;
 
-    if navigations then
-        return navigations
-    end
+    if navigations then return navigations end
 
     navigations = {}
     global.navigations = navigations
-
     return navigations
 end
 
 local function get_navigation(unit_number)
-    local navigations = get_navigations()
+    local navigations = get_or_create_navigations()
+
     local navigation = navigations[unit_number]
 
     if not navigation then
@@ -195,14 +194,14 @@ local function navigation_panel_open(event)
 end
 
 local function on_tick(event)
-    if navigations then
-        for index, navigation in pairs(navigations) do
-            if navigation then
-                if navigation.entity and navigation.entity.valid then
-                    controller.exec_navigation(navigation)
-                else
-                    navigations[index] = nil
-                end
+    get_or_create_navigations()
+
+    for index, navigation in pairs(navigations) do
+        if navigation then
+            if navigation.entity and navigation.entity.valid then
+                controller.exec_navigation(navigation)
+            else
+                navigations[index] = nil
             end
         end
     end
@@ -264,9 +263,14 @@ local function navigation_panel_click_event(event)
     navigation_panel_close(event)
 end
 
-script.on_init(get_navigations)
+local function on_load_event()
+
+end
+
+script.on_load(on_load_event)
 script.on_nth_tick(30, on_tick)
 script.on_event(defines.events.on_gui_opened, navigation_panel_open)
 script.on_event(defines.events.on_gui_click, navigation_panel_click_event)
 script.on_event(defines.events.on_gui_confirmed, navigation_panel_save)
 script.on_event(defines.events.on_gui_closed, navigation_panel_close_event)
+script.on_configuration_changed(controller.on_config_change)
