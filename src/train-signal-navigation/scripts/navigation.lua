@@ -3,14 +3,18 @@ local controller = require("scripts.controller")
 
 local navigation_panel = "nav-panel"
 local navigation_name = "nav-train-signal"
+local supply_station_out_signal = navigation_name .. "-out-signal"
 local supply_station_suffix_name = navigation_name .. "-supply-name"
+local supply_station_auto_created = navigation_name .. "-auto-created"
 
 local navigations
 
 local function get_or_create_navigations()
     if navigations then return navigations end
 
+    controller.supply_station_out_signal = supply_station_out_signal
     controller.supply_station_suffix_name = supply_station_suffix_name
+    controller.supply_station_auto_created = supply_station_auto_created
 
     navigations = global.navigations;
 
@@ -267,10 +271,19 @@ local function on_load_event()
 
 end
 
+local function on_train_schedule_changed(train, player_index, name, tick)
+    tools.debug("行程变更：" .. player_index .. " name : " .. name)
+    if player_index then return end
+
+    controller.on_train_schedule_changed(train)
+end
+
 script.on_load(on_load_event)
 script.on_nth_tick(30, on_tick)
 script.on_event(defines.events.on_gui_opened, navigation_panel_open)
 script.on_event(defines.events.on_gui_click, navigation_panel_click_event)
 script.on_event(defines.events.on_gui_confirmed, navigation_panel_save)
 script.on_event(defines.events.on_gui_closed, navigation_panel_close_event)
+script.on_event(defines.events.on_train_schedule_changed, on_train_schedule_changed)
+script.on_event(defines.events.on_train_created, controller.on_train_created)
 script.on_configuration_changed(controller.on_config_change)
