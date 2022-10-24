@@ -222,7 +222,11 @@ local function exec_navigation(navigation)
     end
 end
 
-controller.exec_navigation = exec_navigation
-controller.on_train_created = on_train_created
+controller.exec_navigation =  function()
+    print_msg("B模式")
+end
+controller.on_train_created = function()
+    print_msg("B模式")
+end
 
 return controller

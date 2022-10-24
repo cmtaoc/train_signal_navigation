@@ -108,53 +108,29 @@ local function debug(msg)
     end
 end
 
-local function dumpTab(tab,ind)
-    if(tab==nil)then return "nil" end;
-    local str="{";
-    if(ind==nil)then ind="  "; end;
-    --//each of table
-    for k,v in pairs(tab) do
-        --//key
-        if(type(k)=="string")then
-            k=tostring(k).." = ";
+local function table2json(t)
+    --将表格转换为json
+    local function serialize(tbl)
+        local tmp = {}
+        for k, v in pairs(tbl) do
+            local k_type = type(k)
+            local v_type = type(v)
+            local key = (k_type == "string" and "\"" .. k .. "\":") or (k_type == "number" and "")
+            local value = (v_type == "table" and serialize(v)) or (v_type == "boolean" and tostring(v)) or (v_type == "string" and "\"" .. v .. "\"") or (v_type == "number" and v)
+            tmp[#tmp + 1] = key and value and tostring(key) .. tostring(value) or nil
+        end
+        if table.maxn(tbl) == 0 then
+            return "{" .. table.concat(tmp, ",") .. "}"
         else
-            k="["..tostring(k).."] = ";
-        end;--//end if
-        --//value
-        local s="";
-        if(type(v)=="nil")then
-            s="nil";
-        elseif(type(v)=="boolean")then
-            if(v) then s="true"; else s="false"; end;
-        elseif(type(v)=="number")then
-            s=v;
-        elseif(type(v)=="string")then
-            s="\""..v.."\"";
-        elseif(type(v)=="table")then
-            s=dumpTab(v,ind.."  ");
-            s=string.sub(s,1,#s-1);
-        elseif(type(v)=="function")then
-            s="function : "..v;
-        elseif(type(v)=="thread")then
-            s="thread : "..tostring(v);
-        elseif(type(v)=="userdata")then
-            s="userdata : "..tostring(v);
-        else
-            s="nuknow : "..tostring(v);
-        end;--//end if
-        --//Contact
-        str=str.."\n"..ind..k..s.." ,";
-    end --//end for
-    --//return the format string
-    local sss=string.sub(str,1,#str-1);
-    if(#ind>0)then ind=string.sub(ind,1,#ind-2) end;
-    sss=sss.."\n"..ind.."}\n";
-    return sss;
+            return "[" .. table.concat(tmp, ",") .. "]"
+        end
+    end
+    assert(type(t) == "table")
+    return serialize(t)
 end
 
-
 local function debug_obj(table)
-    debug(dumpTab(table))
+    debug(table2json(table))
 end
 
 tools.get_child = get_child

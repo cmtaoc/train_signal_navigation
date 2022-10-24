@@ -1,6 +1,21 @@
 data:extend({
 	{
 		type = "bool-setting",
+		name = "nav-train-signal-mode",
+		setting_type = "startup",
+		default_value = false,
+		description = "Test"
+	},
+	{
+		type = "string-setting",
+		name = "nav-train-signal-mode",
+		setting_type = "startup",
+		default_value = "A",
+		allowed_values = {"A", "B"},
+		description = "Signal station working mode."
+	},
+	{
+		type = "bool-setting",
 		name = "nav-train-signal-auto-created",
 		setting_type = "runtime-global",
 		default_value = false,
